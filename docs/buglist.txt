@@ -1,0 +1,106 @@
+Bug Report
+==========
+
+
+For each fixed bug , please provide the following information:
+  - Class name
+  - Method name
+  - Line number
+	- Cause of bug
+  - Bug fix (or reason bug is not easily fixed)
+
+
+BUGS FOUND AND FIXED BY UNIT TEST (should be 4-5):
+
+Bug 0:
+  Class:  PrimitiveValue
+	Method:  equals(Object v)
+	Line: 18
+	Cause:  both return value conditions needed to be met for equals()
+                to be true but they were connected with an OR operator so only
+                one condition needed to be met for true to be returned.
+	Fix:    Changed || to &&
+
+Bug 1:
+  Class: Pair
+	Method: compareTo(Pair p)
+	Line:  30
+	Cause:  This method was comparing the toString() value of the entire
+                parameter pair to the key of this pair. Only the keys
+                of each should have been compared
+	Fix:    I created a new string to hold the string value of the key
+                of the argument pair and a loop to extract it. Then
+                I compared the two key strings of the pairs.
+
+Bug 2:
+  Class:  Pair
+	Method:  toString()
+	Line: 46
+	Cause:  the name and value of the pair were printed beside
+                eachother without the colon in between them as 
+                expected with with a JSON pair
+	Fix:    I changed the method to print [name + " : " + value]
+
+Bug 3:
+  Class: ArrayValue()
+	Method: ArrayValue(JSONScanner js)
+	Line: 19
+	Cause: there is an if statement before the loop that reads
+               in array values to check if the most recently read in
+               value is null. The operater was == when it should have 
+               been != to check if the value is not null
+	Fix:   changed (v == null) to (v != null)
+
+Bug 4:
+  Class: Value
+	Method: getValue(JSONScanner js)
+	Line:  40
+	Cause: there is no switch case for the JSONScanner to read in
+               a closing square bracket.
+	Fix:   I added a case statement that considers a closing
+               square bracket and will return null if it is
+               the case.
+
+
+
+BUGS FOUND AND FIXED USING EXPECTED INPUT (at least 1):
+
+Bug 5:
+  Class:
+	Method:
+	Line:
+	Cause:
+	Fix:
+
+
+BUGS FOUND USING EXPECTED INPUT BUT NOT EASILY FIXED (2-3):
+
+Bug 6:
+  Class: ArrayValue
+	Method: ArrayValue(JSONScanner js) //constuctor
+	Line: 22
+	Cause: not checking if values are properly separated by
+               commas (invalid JSON input (t6.in) with ':' separating
+               array values instead of ',') 
+	Reason not Fixed: will throw UncheckedIOException, must be caught and
+                          properly delt with.
+
+Bug 7:
+  Class: ObjectValue
+	Method: ObjectValue(JSONScanner js) //constuctor
+	Line: 23
+	Cause: not checking if pairs are properly seperated by commas
+               (invalid JSON input (t7.in) with ':' separtaing pairs instead
+                of ',') 
+	Reason not fixed: will throw UncheckedIOException, must be caught and
+                          properly delt with.
+
+Bug 8:
+  Class: ObjectValue
+	Method: ObjectValue(JSONScanner js) //constuctor
+	Line: 22
+	Cause: not cheching for a semi colon inbetween two values before making
+               a pair out of them (invalid JSON input (t8.in) with ',' separtaing pair values 
+               instead of ':')
+	Reason not fixed: will throw UncheckedIOException, must be caught and
+                          properly delt with.
